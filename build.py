@@ -400,7 +400,7 @@ def makeOptionParser():
         ("mac_arch",       ("",    "Comma separated list of architectures to build on Mac")),
 
         ("use_syswx",      (False, "Try to use an installed wx rather than building the "
-                                   "one in this source tree.  The wx-config in {prefix}/bin "
+                                   "one in this source tree.  The wx-config-gtk3.0 in {prefix}/bin "
                                    "or the first found on the PATH determines which wx is "
                                    "used.  Implies --no_magic.")),
         ("force_config",   (False, "Run configure when building even if the script "
@@ -1271,7 +1271,7 @@ def cmd_build_wx(options, args):
                              os.path.join(wxDir(), 'configure'),
                              os.path.join(wxDir(), 'setup.h.in'),
                              os.path.join(wxDir(), 'version-script.in'),
-                             os.path.join(wxDir(), 'wx-config.in'),
+                             os.path.join(wxDir(), 'wx-config-gtk3.0.in'),
                              ]
             for dep in dependencies:
                 if newer(dep, os.path.join(BUILD_DIR, "Makefile")):
@@ -1424,13 +1424,13 @@ def cmd_build_py(options, args):
         os.environ['WXPYTHON_RELEASE'] = 'yes'
 
     if not isWindows:
-        WX_CONFIG = posixjoin(BUILD_DIR, 'wx-config')
+        WX_CONFIG = posixjoin(BUILD_DIR, 'wx-config-gtk3.0')
         if options.use_syswx:
-            wxcfg = posixjoin(options.prefix, 'bin', 'wx-config')
+            wxcfg = posixjoin(options.prefix, 'bin', 'wx-config-gtk3.0')
             if options.prefix and os.path.exists(wxcfg):
                 WX_CONFIG = wxcfg
             else:
-                WX_CONFIG = 'wx-config' # hope it is on the PATH
+                WX_CONFIG = 'wx-config-gtk3.0' # hope it is on the PATH
 
 
     wafBuildBase = wafBuildDir = getWafBuildBase()
